@@ -1,6 +1,7 @@
 class Field {
-  static final int particleDrawSize = 4;
-  public boolean getCrowding = true;
+  static final int particleDrawSize = 10;
+  static final boolean randomSpread = true;
+  public boolean getCrowding = false;
   
   public int t = 0;
   public float crowding = 0;
@@ -11,8 +12,16 @@ class Field {
     particles = new Particle[size];
     
     for (int i = 0; i < particles.length; i++) {
-      particles[i] = new Particle (particles, new Vector (random(width), random(height)), random(2*PI), v, a, b, r);
+      Vector origin = new Vector(width/2, height/2);
+      if (randomSpread) 
+        origin =  new Vector(random(0, width), random(0, height));
+      
+      particles[i] = new Particle (particles, origin, random(2*PI), v, a, b, r);
     }
+  }
+  
+  public Field (int size, Ruleset ruleset) {
+    this(size, ruleset.velocity, ruleset.radius, ruleset.intrinsicAngle, ruleset.reactiveAngle);
   }
   
   public void display (boolean includeAngle, boolean includeRadius) {
@@ -48,9 +57,6 @@ class Field {
         totalNeighbors += p.neighbors;
       }
     }
-    crowding = float(totalNeighbors)/float(particles.length);
-    println(crowding);
-  }
-  
-    
+    crowding = getCrowding ? float(totalNeighbors)/float(particles.length) : 0;
+  }   
 }
