@@ -1,6 +1,8 @@
 Field ParticleField;
 Ruleset rules;
 
+boolean PAUSED = false;
+
 float curZoom = 1;
 float zoom = 1;
 Vector offset = new Vector (0);
@@ -48,7 +50,8 @@ void draw () {
   
   popMatrix();
   
-  capture();
-  
-  ParticleField.step();
+  if (!PAUSED) { 
+    capture();
+    ParticleField.step();
+  }
 }

@@ -10,4 +10,10 @@ void mouseDragged () {
     mOffset.x += dMouse.x/2;
     mOffset.y += dMouse.y/2;
   }
-}  
+}
+
+void keyPressed () {
+ switch (key) {
+   case 'p' : PAUSED = !PAUSED; break;
+ }
+}
