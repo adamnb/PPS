@@ -1,4 +1,4 @@
-final int TOTAL_FRAMES = 150;
+final int TOTAL_FRAMES = 0;
 final int FRAME_SKIP = 1;
 void capture () {
   if (ParticleField.t < TOTAL_FRAMES) {
