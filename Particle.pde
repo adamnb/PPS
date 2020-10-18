@@ -3,7 +3,7 @@ class Particle {
   
   public Vector position;
   public float orientation; // phi
-  public color stateColor;
+  public color stateColor; 
   public int neighbors;
   
   public float velocity; // v
@@ -30,9 +30,9 @@ class Particle {
   // 1) Find neighbors
     int[] n = countNeighbors();
     neighbors = n[2];
-    stateColor = lerpColor(color(52, 235, 55), color(140, 8, 255), float(n[2])/20.0);
+    stateColor = lerpColor(color(52, 235, 55), color(214, 36, 36), float(n[2])/50);
   // 2) Rotate
-    orientation -= intrinsicAngle + reactiveAngle * n[2] * sign(n[1]-n[0]);
+    orientation += intrinsicAngle + reactiveAngle * n[2] * sign(n[1]-n[0]);
     orientation = unwind(orientation);
     
     sine = sin(orientation);
@@ -61,10 +61,9 @@ class Particle {
     for (Particle p: parentField) {
       if (p != this) {
         Vector posDiff = position.subtract(p.position);
-        if (abs(posDiff.x) <= interactRadius && abs(posDiff.y) <= interactRadius) { // Calculate position difference to rule out impossible neighbors before using heavier operations to obtain distance
+        if (abs(posDiff.x) <= interactRadius && abs(posDiff.y) <= interactRadius) { // Rule out impossible neighbors
           float dist = sqrt(posDiff.x*posDiff.x + posDiff.y*posDiff.y);
           if (dist <= interactRadius) {
-      
             if (posDiff.x*sine-posDiff.y*cosine < 0) // Literally no fucking idea how this works
               r++;
             else
