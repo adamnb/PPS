@@ -1,7 +1,8 @@
 Field ParticleField;
 Ruleset rules;
 
-boolean PAUSED = false;
+boolean PAUSED = true;
+boolean CAPTURE = false;
 
 float curZoom = 1;
 float zoom = 1;
@@ -22,9 +23,10 @@ void setup () {
 
 void draw () {
   
-  curZoom = lerp(curZoom, zoom, 0.1);
-  offset.x = ((1-curZoom)*width/2) + mOffset.x;
-  offset.y = ((1-curZoom)*height/2) + mOffset.y;
+  curZoom = lerp(curZoom, zoom, 0.2);
+  resetOffset();
+  
+  //println(curZoom);
   
   dMouse.x = mouseX-pmouseX;
   dMouse.y = mouseY-pmouseY;
@@ -37,7 +39,7 @@ void draw () {
   translate(offset.x, offset.y);
   scale (curZoom);
   
-  ParticleField.display(false, false);
+  ParticleField.display();
   
   stroke(255);
   noFill();
@@ -46,12 +48,22 @@ void draw () {
   fill(255);
   textAlign(LEFT, TOP);
   textSize(30);
-  text(rules.toString(), width+30, 0);
+  text(ParticleField.getRules().toString(), width+30, 0);
   
   popMatrix();
   
+  
   if (!PAUSED) { 
-    capture();
+    if (CAPTURE) 
+      capture();
     ParticleField.step();
   }
+  else { 
+    text ("PAUSED",  5, 5);
+  }
+}
+
+void resetOffset () {
+  offset.x = ((1-curZoom)*width/2) + mOffset.x;
+  offset.y = ((1-curZoom)*height/2) + mOffset.y;
 }
