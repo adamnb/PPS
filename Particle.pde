@@ -32,8 +32,8 @@ class Particle {
     neighbors = n[2];
     stateColor = lerpColor(color(52, 235, 55), color(214, 36, 36), float(n[2])/50);
   // 2) Rotate
-    orientation += intrinsicAngle + reactiveAngle * n[2] * sign(n[1]-n[0]);
-    orientation = unwind(orientation);
+    orientation += intrinsicAngle + reactiveAngle * n[2] * Utils.sign(n[1]-n[0]);
+    orientation = Utils.unwind(orientation);
     
     sine = sin(orientation);
     cosine = cos(orientation);
