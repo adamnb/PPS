@@ -3,6 +3,8 @@ class Field {
   static final boolean randomSpread = true;
   public boolean getCrowding = false;
   
+  public float v, r, a, b;
+  
   public int t = 0;
   public float crowding = 0;
   
@@ -11,12 +13,17 @@ class Field {
   public Field (int size, float v, float r, float a, float b) {
     particles = new Particle[size];
     
+    this.v = v;
+    this.r = r;
+    this.a = a;
+    this.b = b;
+    
     for (int i = 0; i < particles.length; i++) {
       Vector origin = new Vector(width/2, height/2);
       if (randomSpread) 
         origin =  new Vector(random(0, width), random(0, height));
       
-      particles[i] = new Particle (particles, origin, random(2*PI), v, a, b, r);
+      particles[i] = new Particle (particles, origin, random(2*PI), this.v, this.a, this.b, this.r);
     }
   }
   
