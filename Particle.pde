@@ -58,19 +58,27 @@ class Particle {
 
   private int[] countNeighbors () {
     int l = 0; int r = 0;
+    
     for (Particle p: parentField) {
-      if (p != this) {
-        Vector posDiff = position.subtract(p.position);
-        if (abs(posDiff.x) <= interactRadius && abs(posDiff.y) <= interactRadius) { // Rule out impossible neighbors
-          float dist = sqrt(posDiff.x*posDiff.x + posDiff.y*posDiff.y);
-          if (dist <= interactRadius) {
-            if (posDiff.x*sine-posDiff.y*cosine < 0) // Literally no fucking idea how this works
-              r++;
-            else
-              l++;
-          }
-        }
-      }
+      Vector posDiff;
+      float dist;
+      
+      if (p == this) continue;
+      
+      posDiff = position.subtract(p.position);
+      
+      if (abs(posDiff.x) > interactRadius && abs(posDiff.y) > interactRadius) // Rule out impossible neighbors
+        continue;
+        
+      dist = sqrt(posDiff.x*posDiff.x + posDiff.y*posDiff.y);
+      
+      if (dist > interactRadius) continue;
+      
+      if (posDiff.x*sine-posDiff.y*cosine < 0) // Literally no fucking idea how this works
+        r++; 
+      else
+        l++;
+      
     }
     return new int[] {l, r, l+r};
   }  
