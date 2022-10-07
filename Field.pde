@@ -1,5 +1,5 @@
 class Field {
-  static final int particleDrawSize = 10;
+  static final int particleDrawSize = 5;
   static final boolean randomSpread = true;
   public boolean getCrowding = false;
   
