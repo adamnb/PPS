@@ -54,6 +54,10 @@ class Field {
     }
   }
   
+  public void display() {
+    display(false, false);
+  }
+  
   public void step () {
     t++;
     int totalNeighbors = 0;
@@ -65,5 +69,13 @@ class Field {
       }
     }
     crowding = getCrowding ? float(totalNeighbors)/float(particles.length) : 0;
-  }   
+  } 
+  
+  public int getSize () {
+    return particles.length;
+  }
+  
+  public Ruleset getRules () { 
+    return new Ruleset(this.v, this.r, this.a, this.b);
+  }
 }
