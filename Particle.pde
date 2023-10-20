@@ -74,7 +74,7 @@ class Particle {
       
       if (dist > interactRadius) continue;
       
-      if (posDiff.x*sine-posDiff.y*cosine < 0) // Literally no fucking idea how this works
+      if (posDiff.x*sine-posDiff.y*cosine < 0) // I understand it now, it's super simple actually
         r++; 
       else
         l++;
